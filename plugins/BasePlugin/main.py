@@ -69,7 +69,7 @@ class BasePlugin(object):
         for c in self.bot.cmd_descs:
             if c != u'kaziciota':
                 out += u"{}{} - {}\n".format(self.bot.stanislaw, c, self.bot.cmd_descs[c])
-        out += u"##messenger-bot by JuniorJPDJ"
+        out += u"##messenger-bot by JuniorJPDJ\n##https://bitbucket.org/juniorjpdj/messenger-bot/"
         self.bot.messenger.send_msg(thread, out, group=True)
 
     def command_ping(self, sender, thread, command, args):
