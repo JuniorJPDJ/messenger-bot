@@ -4,7 +4,7 @@ __author__ = 'JuniorJPDJ'
 import logging
 import random
 import os
-from MessengerCreateAttachmentAPI import MessengerCreateAttachment
+from messenger_api.MessengerCreateAttachmentAPI import MessengerCreateAttachment
 
 txt = [u"Best Juan's Pablo kremówki since 2005!", u"Kremówki just arrived :>",
        u"If you want something to eat - eat kremówka!", u"Kremówka is love <3", u"Want kremówka now? :3",
