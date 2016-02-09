@@ -7,8 +7,8 @@ import os
 import imp
 from getpass import getpass
 from threading import Thread
-from MessengerAPI import Messenger
-from MessengerRealTimeChatAPI import MessengerRealTimeChat
+from messenger_api.MessengerAPI import Messenger
+from messenger_api.MessengerRealTimeChatAPI import MessengerRealTimeChat
 
 
 class AsyncRun(Thread):
