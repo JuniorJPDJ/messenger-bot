@@ -17,7 +17,7 @@ class DailyTrudny(object):
 
     def trudny(self, sender, thread, command, args):
         with io.open(txtfile) as f:
-            self.bot.messenger.send_msg(thread, random.choice(f).rstrip(), group=True)
+            self.bot.messenger.send_msg(thread, random.choice(f.readlines()).rstrip(), group=True)
 
 
 
