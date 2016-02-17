@@ -19,6 +19,4 @@ class DailyTrudny(object):
         with io.open(txtfile) as f:
             self.bot.messenger.send_msg(thread, random.choice(f.readlines()).rstrip(), group=True)
 
-
-
 __plugin__ = DailyTrudny
