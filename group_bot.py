@@ -27,13 +27,14 @@ class MessengerBot(object):
     plugin_dir = 'plugins'
     plugins = {}
     groups = []
-    # I asked my mate how to call character that starts the string if it is command, he said to call him "Stanisław"
+    # I asked my mate how to call character that starts the string if it is command, he said to call it "Stanisław"
     stanislaw = u"@"
     commands = {}
     cmd_descs = {}
 
     def __init__(self, messenger, mrtc):
         self.messenger = messenger
+        self.mrtc = mrtc
         self.load_plugins()
         mrtc.register_handler('group_msg', self.on_group_msg)
 
@@ -57,6 +58,10 @@ class MessengerBot(object):
             sys.path.remove(path)
             if plugin.name not in self.plugins:
                 self.plugins[plugin.name] = plugin(self)
+
+    def get_plugin(self, name):
+        if name in self.plugins:
+            return self.plugins[name]
 
     def on_group_msg(self, datetime, (sender_id, sender_name), (group_id, group_name), message_body, attachments):
         if message_body.find(self.stanislaw) == 0 and len(message_body) != 1 and group_id in self.groups:
@@ -109,7 +114,7 @@ if __name__ == "__main__":
     bot.add_group(1403060290008116)
     bot.add_group(1084276031617412)
     bot.add_group(1541353019510339)
-    bot.plugins['BasePlugin'].global_op('Jacek Junior Pruciak')
+    bot.get_plugin('BasePlugin').global_op('Jacek Junior Pruciak')
 
     for i in bot.groups:
         messenger.send_msg(i, u'[INFO] Bot zalogowany, oczekiwanie na komendy - lista pod komendą @help', group=True)

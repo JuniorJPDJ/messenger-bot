@@ -18,7 +18,7 @@ class DailyKremowka(object):
     def __init__(self, bot):
         self.bot = bot
         self.att = MessengerCreateAttachment(bot.messenger)
-        bot.register_command(u'dailykremowka', self.kremowka, u'Janek Paweu Drógi')
+        bot.register_command(u'dailykremowka', self.kremowka, u'wysyła dzienną dawkęk kremówek')
         logging.info(u'dailykremówka loaded')
 
     def kremowka(self, sender, thread, command, args):
