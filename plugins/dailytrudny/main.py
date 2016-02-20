@@ -5,10 +5,9 @@ import logging
 import random
 import io
 
-txtfile = 'plugins/dailytrudny/teksty.txt'
-
 class DailyTrudny(object):
     name = "dailytrudny"
+    txtfile = 'plugins/dailytrudny/teksty.txt'
 
     def __init__(self, bot):
         self.bot = bot
@@ -16,7 +15,7 @@ class DailyTrudny(object):
         logging.info(u'dailytrudny loaded')
 
     def trudny(self, sender, thread, command, args):
-        with io.open(txtfile) as f:
+        with io.open(self.txtfile) as f:
             self.bot.messenger.send_msg(thread, random.choice(f.readlines()).rstrip(), group=True)
 
 __plugin__ = DailyTrudny
