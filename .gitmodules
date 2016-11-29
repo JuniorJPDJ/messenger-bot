@@ -1,0 +1,3 @@
+[submodule "messenger_api"]
+	path = messenger_api
+	url = https://github.com/JuniorJPDJ/messenger_api
