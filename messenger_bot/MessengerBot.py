@@ -1,20 +1,19 @@
+import logging
+
 from messenger_api.MessengerAPI.Messenger import Messenger
-from PluginLoader import PluginLoader
+from .PluginLoader import PluginLoader
 
 __author__ = 'JuniorJPDJ'
 
+logger = logging.getLogger(__name__)
+
 
 class MessengerBot(object):
-    def __init__(self, bot_username, bot_password):
+    def __init__(self, bot_username, bot_password, command_char='.'):
+        self.command_char = command_char
         self.msg = Messenger(bot_username, bot_password)
 
         self.plugin_loader = PluginLoader()
         self.plugin_loader.load_plugins()
 
-if __name__ == "__main__":
-    import argparse
-
-    p = argparse.ArgumentParser(description='Messenger Group Bot')
-    p.add_argument()
-
-    bot = MessengerBot('frydpol84@poczta.fm', 'q96b63zmknjR')
+        logger.info('Started')
