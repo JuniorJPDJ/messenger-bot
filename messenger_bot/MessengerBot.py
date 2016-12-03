@@ -73,7 +73,7 @@ class MessengerBot(object):
 
     def pull(self):
         logger.debug('Pulling!')
-        return self.msg._pparser.make_pull()
+        return self.msg.pull()
 
     def register_command(self, command):
         """
@@ -123,7 +123,7 @@ class MessengerBot(object):
         called_cmd = args[0][len(self.command_startswith):]
         args = args[1:]
 
-        logger.debug('Called command {} with arguments {}'.format(called_cmd, args))
+        logger.debug('{} called command "{}" with arguments {}'.format(msg.author.short_name, called_cmd, args))
         for cmd in self.__commands:
             if called_cmd == cmd.cmd or called_cmd in cmd.aliases:
                 self.queue.put(lambda: cmd.run(msg.thread, msg.author, *args))
