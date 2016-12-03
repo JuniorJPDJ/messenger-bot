@@ -1,12 +1,10 @@
 from __future__ import unicode_literals
 
-from collections import defaultdict
 import threading
 import sys
 import logging
 
 from messenger_api.MessengerAPI.utils.universal_type_checking import is_integer
-from messenger_api.MessengerAPI.Actions import Action
 from messenger_api.MessengerAPI.Messenger import Messenger
 from messenger_api.MessengerAPI.Message import Message
 from messenger_api.MessengerAPI.Thread import Thread
@@ -49,7 +47,6 @@ class MessengerBot(object):
         self.queue = Queue()
         self.queue_thread = self.QueueThread(self.queue)
         self.queue_thread.start()
-        self.__action_handlers = defaultdict(lambda: [])
 
         self.threads = []
         self.command_startswith = command_startswith
@@ -60,8 +57,7 @@ class MessengerBot(object):
                 if is_integer(t):
                     self.threads.append(self.msg.get_thread(t))
 
-        self.msg._pparser.register_actions_handler(self._handle_action)
-        self.register_action_handler(Message, self._run_command)
+        self.msg.register_action_handler(Message, self._run_command)
 
         self.plugin_loader = PluginLoader(plugins_dir, bot=self)
         self.plugin_loader.load_plugins()
@@ -78,16 +74,6 @@ class MessengerBot(object):
     def pull(self):
         logger.debug('Pulling!')
         return self.msg._pparser.make_pull()
-
-    def _handle_action(self, action):
-        """
-        :type action: Action
-        """
-        for handler in self.__action_handlers[action.__class__]:
-            self.queue.put(lambda: handler(action))
-
-    def register_action_handler(self, action, handler):
-        self.__action_handlers[action].append(handler)
 
     def register_command(self, command):
         """
