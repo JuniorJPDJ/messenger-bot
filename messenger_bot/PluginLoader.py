@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import os
 import importlib
 import logging
@@ -17,9 +19,12 @@ class PluginLoader(object):
         plugins_dir = os.path.join(os.path.split(os.path.abspath(__file__))[0], self.plugins_dir)
         for i in os.listdir(plugins_dir):
             location = os.path.join(plugins_dir, i)
-            if i.startswith('!') or not (os.path.isdir(location) and '__init__.py' in os.listdir(location)):
+            if i.startswith('!') or\
+               not (os.path.isdir(location) and '__init__.py' in os.listdir(location)) and\
+               not (os.path.isfile(location) and i.endswith('.py')):
                 continue
-            plugin = getattr(importlib.import_module('.{}.{}'.format(self.plugins_dir, i)), self.plugin_main, None)
+            plugin = getattr(importlib.import_module('.{}.{}'.format(self.plugins_dir, i.split('.')[0]), __package__),
+                             self.plugin_main, None)
             if plugin is None:
                 continue
             logger.debug('Loading plugin started: %s', plugin.name)
