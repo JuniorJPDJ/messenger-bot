@@ -26,12 +26,12 @@ class DuckDuckPlugin(Plugin):
 class DuckDuckCommand(Command):
     def __init__(self):
         name = ""
-        desc = "Replying with duckduckgo.com url"
+        desc = "Replying with DuckDuckGo.com url"
         aliases = ["ddg", "duckduckgo"]
         Command.__init__(self, name, desc, aliases)
 
     def run(self, thread, sender, *args):
         query = quote_plus(' '.join(args))
-        thread.send_message("Here's your duck {}:\nhttps://duckduckgo.com/?q={}".format(sender.short_name, query))
+        thread.send_message("Here's your Duck {}:\n\nhttps://duckduckgo.com/?q={}".format(sender.short_name, query))
 
 __plugin__ = DuckDuckPlugin

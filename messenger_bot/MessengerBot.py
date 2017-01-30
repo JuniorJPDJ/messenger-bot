@@ -125,7 +125,7 @@ class MessengerBot(object):
 
         logger.debug('{} called command "{}" with arguments {}'.format(msg.author.short_name, called_cmd, args))
         for cmd in self.__commands:
-            if called_cmd == cmd.cmd or called_cmd in cmd.aliases:
+            if called_cmd.lower() == cmd.cmd or called_cmd.lower() in cmd.aliases:
                 self.queue.put(lambda: cmd.run(msg.thread, msg.author, *args))
                 return
         logger.debug('There is no registered command like that')
